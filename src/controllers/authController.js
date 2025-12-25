@@ -80,7 +80,7 @@ export const login = async (req, res) => {
             sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
             maxAge: 7 * 24 * 60 *60 * 1000
         })
-
+        
         return res.json({ success: true })
 
     } catch (error) {
@@ -109,7 +109,7 @@ export const sendVerifyOtp = async (req, res) => {
     try {
         const { userId } = req.body;
         const user = await userModel.findById(userId);
-        if (!user.isAccountVerified) {
+        if (user.isAccountVerified) {
             return res.json({ success: false, message: "Account already verified"})
         }
 
